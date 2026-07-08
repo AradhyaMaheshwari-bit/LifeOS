@@ -4,7 +4,7 @@ These rules define how daily logs are generated and maintained.
 
 ---
 
-## Rule — Schema Stability
+# Rule — Schema Stability
 
 The LifeOS JSON schema is considered stable.
 
@@ -22,7 +22,7 @@ Only record information that is either:
 
 - Explicitly provided
 - Confirmed by the user
-- Inferred using an agreed LifeOS inference rule
+- Inferred using an agreed LifeOS inference rule.
 
 ---
 
@@ -33,7 +33,12 @@ If exact information is available, always use it.
 Example:
 
 Workout:
+
+```
 07:50–08:50
+```
+
+Store:
 
 ```json
 {
@@ -50,16 +55,17 @@ If important information is missing but the user is likely to know it, ask conci
 
 Example:
 
-"I know you had breakfast.
-Do you remember approximately what time?"
+> "I know you had breakfast. Do you remember approximately what time?"
 
 ---
 
 ## Rule 4 — Use inference only when appropriate
 
-If the user does not know the answer, apply an agreed LifeOS inference rule.
+If information is missing:
 
-All inferred values must be documented in the `notes` field.
+1. Prefer asking the user if they are likely to know the answer.
+2. If the user does not know, apply an agreed LifeOS inference rule.
+3. Every inferred value must be documented in `summary.notes`.
 
 ---
 
@@ -67,48 +73,60 @@ All inferred values must be documented in the `notes` field.
 
 ## Sleep
 
-If:
+**If:**
 
-- Lunch time is known
-- No activity is recorded afterward
-- Sleep ends at a known time
+- Lunch time is known.
+- No activity is recorded afterward.
+- Sleep ends at a known time.
 
-Then:
+**Then:**
 
-Infer sleep start approximately 2–3 hours after lunch.
+Infer the sleep start time approximately **2 hours after lunch**.
+
+Add the following to `summary.notes`:
+
+> "Sleep start time inferred using the agreed LifeOS inference rule."
 
 ---
 
 ## Study
 
-If:
+**If:**
 
-- Study begins
-- No interruption is mentioned
-- Study ends at a known time
+- Study start time is known.
+- No interruption is mentioned.
+- Study end time is known.
 
-Treat it as one continuous study session.
+**Then:**
+
+Treat it as **one continuous study session**.
+
+Only create multiple study sessions if the user explicitly indicates they stopped and started again.
 
 ---
 
 ## Workout
 
-If:
+**If:**
 
-- Workout is briefly interrupted
-- Workout resumes afterward
+- A workout is briefly interrupted.
+- The workout resumes afterward.
 
-Treat it as one workout session.
+**Then:**
 
-Only create another session if a completely separate workout is performed.
+Treat it as **the same workout session**.
+
+Only create another workout session if the user clearly states it became a separate workout.
 
 ---
 
 ## Meals
 
+### Food Structure
+
 If the user says:
 
-Egg Curry and Rice
+> Egg Curry and Rice
 
 Store:
 
@@ -119,16 +137,37 @@ Store:
 ]
 ```
 
+### Meal Duration
+
+**If:**
+
+- Meal start time is known.
+- Meal end time is not provided.
+
+**Then:**
+
+Infer:
+
+```
+end_time = start_time + 30 minutes
+```
+
+Add the following to `summary.notes`:
+
+> "Meal end time inferred using the agreed LifeOS inference rule (30-minute meal duration)."
+
+If the user explicitly provides an end time, always use the user's value instead.
+
 ---
 
 # 3. Data Standards
 
-- Use ISO 8601 datetime format everywhere.
+- Use ISO 8601 date and datetime formats.
 - Sleep belongs to the day the user wakes up.
 - Do not store derived values.
-- Do not invent ratings.
-- Keep the schema minimal and consistent.
-- Record inferred values inside `notes`.
+- Do not invent ratings or missing information.
+- Keep the JSON schema minimal and consistent.
+- Every inferred value must be documented in `summary.notes`.
 
 ---
 
@@ -136,9 +175,9 @@ Store:
 
 Always follow this order:
 
-1. Explicit information
-2. Clarifying question
-3. Agreed inference rule
+1. Explicit user information.
+2. Clarifying question.
+3. Agreed LifeOS inference rule.
 4. `null`
 
 ---
@@ -147,6 +186,17 @@ Always follow this order:
 
 1. Gather information throughout the day.
 2. Identify important missing information.
-3. Ask concise clarification questions.
-4. Apply agreed inference rules.
-5. Generate the final JSON.
+3. Ask concise clarification questions when appropriate.
+4. Apply agreed LifeOS inference rules when necessary.
+5. Generate the final daily JSON.
+
+---
+
+# Current LifeOS Inference Rules
+
+LifeOS currently supports the following inference rules:
+
+- **Sleep:** Infer sleep start time using the agreed sleep inference rule.
+- **Study:** Treat uninterrupted study as one continuous study session.
+- **Workout:** Treat brief interruptions as part of the same workout session.
+- **Meals:** Infer meal end time as **30 minutes after the recorded start time** when no end time is provided.
