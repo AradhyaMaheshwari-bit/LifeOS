@@ -61,8 +61,9 @@
             "food": [
                 "Jave"
             ],
-            "time": "2026-07-07T09:40",
-            "notes": ""
+            "start": "2026-07-07T09:40",
+            "end": "2026-07-07T10:10",
+            "notes": "End time inferred using the agreed LifeOS inference rule (30-minute meal duration)."
         },
         {
             "type": "Lunch",
@@ -70,8 +71,9 @@
                 "Dal",
                 "Rice"
             ],
-            "time": "2026-07-07T16:00",
-            "notes": ""
+            "start": "2026-07-07T16:00",
+            "end": "2026-07-07T16:30",
+            "notes": "End time inferred using the agreed LifeOS inference rule (30-minute meal duration)."
         }
     ],
 
