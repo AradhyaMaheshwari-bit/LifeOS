@@ -73,6 +73,8 @@ If information is missing:
 
 ## Sleep
 
+### Main Sleep
+
 **If:**
 
 - Lunch time is known.
@@ -86,6 +88,35 @@ Infer the sleep start time approximately **2 hours after lunch**.
 Add the following to `summary.notes`:
 
 > "Sleep start time inferred using the agreed LifeOS inference rule."
+
+---
+
+### Naps
+
+**If:**
+
+- The user says they are going to sleep (or indicates they are about to take a nap).
+- No sleep end time is provided at that moment.
+
+**Then:**
+
+Do **not** create a sleep session immediately.
+
+Wait until the user later sends a wake-up message, such as:
+
+> "Just woke up."
+
+Then:
+
+- Use the timestamp of the message indicating they were going to sleep as the sleep start time.
+- Use the timestamp of the wake-up message as the sleep end time.
+- Create a single sleep session automatically.
+
+Add the following to `summary.notes`:
+
+> "Sleep session created using the agreed LifeOS nap inference rule based on conversation timestamps."
+
+If the user explicitly provides the sleep start time or wake-up time, always use the user's values instead of the inferred timestamps.
 
 ---
 
