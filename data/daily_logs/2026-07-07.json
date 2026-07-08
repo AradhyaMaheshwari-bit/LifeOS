@@ -1,0 +1,101 @@
+{
+    "date": "2026-07-07",
+    "day": "Tuesday",
+
+    "sleep": [
+        {
+            "start": "2026-07-07T01:10",
+            "end": "2026-07-07T06:45",
+            "notes": ""
+        }
+    ],
+
+    "study": [],
+
+    "workout": [
+        {
+            "type": "Leg Day",
+            "start": "2026-07-07T07:50",
+            "end": "2026-07-07T08:50",
+            "exercises": [
+                {
+                    "name": "Bodyweight Squats",
+                    "unit": "reps",
+                    "sets": [15, 15, 15],
+                    "notes": ""
+                },
+                {
+                    "name": "Reverse Lunges",
+                    "unit": "reps/leg",
+                    "sets": [10, 10, 10],
+                    "notes": ""
+                },
+                {
+                    "name": "Glute Bridges",
+                    "unit": "reps",
+                    "sets": [15, 15, 15],
+                    "notes": "Body started shaking from the second repetition onward."
+                },
+                {
+                    "name": "Wall Sit",
+                    "unit": "seconds",
+                    "sets": [10, 15, 20],
+                    "notes": ""
+                },
+                {
+                    "name": "Standing Calf Raises",
+                    "unit": "reps",
+                    "sets": [20, 20, 20],
+                    "notes": ""
+                }
+            ],
+            "notes": "Workout resumed after a short interruption due to morning work."
+        }
+    ],
+
+    "walks": [],
+
+    "meals": [
+        {
+            "type": "Breakfast",
+            "food": [
+                "Jave"
+            ],
+            "time": "2026-07-07T09:40",
+            "notes": ""
+        },
+        {
+            "type": "Lunch",
+            "food": [
+                "Dal",
+                "Rice"
+            ],
+            "time": "2026-07-07T16:00",
+            "notes": ""
+        }
+    ],
+
+    "summary": {
+        "wins": [
+            "Completed the first workout of the 90-day transformation plan.",
+            "Finished every planned exercise.",
+            "Provided detailed workout feedback."
+        ],
+        "improvements": [
+            "Improve sleep duration.",
+            "Increase wall sit endurance gradually."
+        ],
+        "observations": [
+            "Slight strain around the collarbone/upper back during arm circles.",
+            "Glute bridges caused shaking but no pain.",
+            "Skipped dinner because of sleeping early."
+        ],
+        "notes": "Official Day 1 of the 90-day transformation journey.",
+        "tags": [
+            "90-day-transformation",
+            "first-workout",
+            "leg-day",
+            "fitness"
+        ]
+    }
+}

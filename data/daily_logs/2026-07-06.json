@@ -1,0 +1,75 @@
+{
+    "date": "2026-07-06",
+    "day": "Monday",
+
+    "sleep": [
+        {
+            "start": "2026-07-06T15:00",
+            "end": "2026-07-06T18:00",
+            "notes": "Start time inferred using the agreed LifeOS inference rule (approximately 2 hours after lunch)."
+        }
+    ],
+
+    "study": [
+        {
+            "subject": "",
+            "topic": "",
+            "start": "2026-07-06T18:00",
+            "end": "2026-07-06T20:00",
+            "notes": ""
+        },
+        {
+            "subject": "",
+            "topic": "",
+            "start": "2026-07-06T22:00",
+            "end": "2026-07-07T01:10",
+            "notes": "Completed work and pushed changes to GitHub."
+        }
+    ],
+
+    "workout": [],
+
+    "walks": [],
+
+    "meals": [
+        {
+            "type": "Lunch",
+            "food": [
+                "Egg Curry",
+                "Rice"
+            ],
+            "time": "2026-07-06T13:00",
+            "notes": "Time inferred from the day's schedule."
+        },
+        {
+            "type": "Dinner",
+            "food": [
+                "Mixed Dal-Rajma",
+                "Rice"
+            ],
+            "time": "2026-07-06T20:00",
+            "notes": "Time inferred from the day's schedule."
+        }
+    ],
+
+    "summary": {
+        "wins": [
+            "Cleaned room and floor.",
+            "Completed over 5 hours of focused study.",
+            "Pushed project updates to GitHub."
+        ],
+        "improvements": [
+            "Avoid long afternoon naps.",
+            "Begin workout routine the following day."
+        ],
+        "observations": [
+            "Used the day as a reset before starting the 90-day transformation journey."
+        ],
+        "notes": "No workout was performed.",
+        "tags": [
+            "reset-day",
+            "github",
+            "room-cleaning"
+        ]
+    }
+}

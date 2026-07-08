@@ -1,4 +1,4 @@
-from menu import main_menu
+from main_menu import main_menu
 
 def main():
     print("=" * 35)
