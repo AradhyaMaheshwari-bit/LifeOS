@@ -138,6 +138,8 @@ Only create multiple study sessions if the user explicitly indicates they stoppe
 
 ## Workout
 
+### Interrupted Workouts
+
 **If:**
 
 - A workout is briefly interrupted.
@@ -148,6 +150,50 @@ Only create multiple study sessions if the user explicitly indicates they stoppe
 Treat it as **the same workout session**.
 
 Only create another workout session if the user clearly states it became a separate workout.
+
+---
+
+### Workout Status
+
+LifeOS tracks workout adherence as part of the 90-Day Transformation.
+
+Unlike other activity categories, the workout section should always indicate whether the planned workout was completed or intentionally skipped.
+
+#### Completed Workout
+
+```json
+{
+    "status": "Completed",
+    "type": "Leg Day",
+    "start": "2026-07-07T07:50",
+    "end": "2026-07-07T08:50",
+    "exercises": [],
+    "notes": ""
+}
+```
+
+#### Skipped Workout
+
+```json
+{
+    "status": "Skipped",
+    "reason": "Calf muscle soreness from previous leg workout.",
+    "notes": ""
+}
+```
+
+The `status` field represents what happened to the planned workout.
+
+Current supported values are:
+
+- `Completed`
+- `Skipped`
+
+Future versions may introduce additional statuses if needed (for example `Modified`).
+
+Whenever a workout is intentionally skipped, record the reason if it is known.
+
+Do not leave the workout array empty when the user explicitly states they skipped the workout.
 
 ---
 
@@ -199,6 +245,65 @@ If the user explicitly provides an end time, always use the user's value instead
 - Do not invent ratings or missing information.
 - Keep the JSON schema minimal and consistent.
 - Every inferred value must be documented in `summary.notes`.
+
+## Workout
+
+### Interrupted Workouts
+
+**If:**
+
+- A workout is briefly interrupted.
+- The workout resumes afterward.
+
+**Then:**
+
+Treat it as **the same workout session**.
+
+Only create another workout session if the user clearly states it became a separate workout.
+
+---
+
+### Workout Status
+
+LifeOS tracks workout adherence as part of the 90-Day Transformation.
+
+Unlike other activity categories, the workout section should always indicate whether the planned workout was completed or intentionally skipped.
+
+#### Completed Workout
+
+```json
+{
+    "status": "Completed",
+    "type": "Leg Day",
+    "start": "2026-07-07T07:50",
+    "end": "2026-07-07T08:50",
+    "exercises": [],
+    "notes": ""
+}
+```
+
+#### Skipped Workout
+
+```json
+{
+    "status": "Skipped",
+    "reason": "Calf muscle soreness from previous leg workout.",
+    "notes": ""
+}
+```
+
+The `status` field represents what happened to the planned workout.
+
+Current supported values are:
+
+- `Completed`
+- `Skipped`
+
+Future versions may introduce additional statuses if needed (for example `Modified`).
+
+Whenever a workout is intentionally skipped, record the reason if it is known.
+
+Do not leave the workout array empty when the user explicitly states they skipped the workout.
 
 ---
 
