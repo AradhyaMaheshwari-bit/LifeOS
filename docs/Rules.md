@@ -246,64 +246,156 @@ If the user explicitly provides an end time, always use the user's value instead
 - Keep the JSON schema minimal and consistent.
 - Every inferred value must be documented in `summary.notes`.
 
-## Workout
+## Activity Recording Rules
 
-### Interrupted Workouts
+### Study
 
-**If:**
+Only record study sessions that actually occurred.
 
-- A workout is briefly interrupted.
-- The workout resumes afterward.
+```json
+"study": []
+```
 
-**Then:**
-
-Treat it as **the same workout session**.
-
-Only create another workout session if the user clearly states it became a separate workout.
+means no study session was completed or recorded.
 
 ---
 
-### Workout Status
+### Walks
 
-LifeOS tracks workout adherence as part of the 90-Day Transformation.
+Only record walks that actually occurred.
 
-Unlike other activity categories, the workout section should always indicate whether the planned workout was completed or intentionally skipped.
+```json
+"walks": []
+```
 
-#### Completed Workout
+means no walk was completed or recorded.
+
+---
+
+### Meals
+
+Only record meals that were actually eaten.
+
+If a meal was skipped, do not create an empty meal object.
+
+Example:
+
+If lunch was skipped:
+
+```json
+"meals": []
+```
+
+or simply omit the lunch entry.
+
+---
+
+### Sleep
+
+Only record completed sleep sessions.
+
+---
+
+### Workout (Exception)
+
+Workout tracking is different because LifeOS tracks adherence to the 90-Day Transformation.
+
+Therefore:
+
+- A completed workout must be recorded using:
 
 ```json
 {
     "status": "Completed",
-    "type": "Leg Day",
-    "start": "2026-07-07T07:50",
-    "end": "2026-07-07T08:50",
-    "exercises": [],
-    "notes": ""
+    ...
 }
 ```
 
-#### Skipped Workout
+- An intentionally skipped workout must be recorded using:
 
 ```json
 {
     "status": "Skipped",
-    "reason": "Calf muscle soreness from previous leg workout.",
+    "reason": "...",
     "notes": ""
 }
 ```
 
-The `status` field represents what happened to the planned workout.
+An empty workout array
 
-Current supported values are:
+```json
+"workout": []
+```
 
-- `Completed`
-- `Skipped`
+means workout information has not yet been recorded.
 
-Future versions may introduce additional statuses if needed (for example `Modified`).
+## Field Definitions
 
-Whenever a workout is intentionally skipped, record the reason if it is known.
+The following definitions describe the purpose of each field in the daily JSON.
 
-Do not leave the workout array empty when the user explicitly states they skipped the workout.
+### Study Session
+
+```json
+{
+    "subject": "",
+    "topic": "",
+    "start": "",
+    "end": "",
+    "notes": "",
+    "key_learnings": [],
+    "review_topics": []
+}
+```
+
+| Field | Purpose |
+|--------|---------|
+| `subject` | Broad category of study (e.g., Python, Git, SQL, BCA, Data Structures). |
+| `topic` | Specific lesson, chapter, project, or concept studied. |
+| `start` | ISO 8601 timestamp indicating when the study session began. |
+| `end` | ISO 8601 timestamp indicating when the study session ended. |
+| `notes` | Context, observations, challenges, or additional information that doesn't fit elsewhere. |
+| `key_learnings` | Concepts, skills, or ideas successfully understood during the session. |
+| `review_topics` | Concepts that require further revision or were not fully understood. |
+
+### Guidelines
+
+- `subject` should remain broad and consistent across sessions.
+- `topic` should be as specific as possible.
+- `notes` should provide context rather than duplicate information stored elsewhere.
+- `key_learnings` should only contain concepts that were genuinely learned.
+- `review_topics` should contain concepts that need to be revisited in future study sessions.
+
+### Consistency Rule
+
+Use consistent names for recurring subjects.
+
+Examples:
+
+- Python
+- Git
+- SQL
+- Power BI
+- BCA
+- Machine Learning
+
+Avoid using multiple names for the same subject unless they genuinely refer to different subjects.
+
+For example, always use:
+
+```
+Python
+```
+
+instead of mixing:
+
+```
+Python
+Python Programming
+Py
+CWH Python
+```
+
+This ensures long-term analytics remain accurate.
 
 ---
 
@@ -332,7 +424,22 @@ Always follow this order:
 
 LifeOS currently supports the following inference rules:
 
-- **Sleep:** Infer sleep start time using the agreed sleep inference rule.
+- **Sleep (Main Sleep):** Infer sleep start time using the agreed sleep inference rule when the required conditions are met.
+- **Sleep (Naps):** Create nap sessions automatically using conversation timestamps when the user later reports waking up.
 - **Study:** Treat uninterrupted study as one continuous study session.
 - **Workout:** Treat brief interruptions as part of the same workout session.
 - **Meals:** Infer meal end time as **30 minutes after the recorded start time** when no end time is provided.
+
+---
+
+# Design Philosophy
+
+LifeOS follows these principles:
+
+- The daily JSON is the single source of truth.
+- Generated reports should be derived from the daily JSON, not stored as independent data.
+- The JSON schema is considered stable and should only change when a genuine functional requirement exists.
+- Store facts rather than derived values.
+- Prefer explicit user information over inference.
+- Every module should have a single responsibility.
+- Application code adapts to the data model, not the other way around.
