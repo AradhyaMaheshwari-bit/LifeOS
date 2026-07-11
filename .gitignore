@@ -26,3 +26,15 @@ tempCodeRunnerFile.py
 # =========================
 .DS_Store
 Thumbs.db
+
+# Personal LifeOS data
+data/daily_logs/
+
+# Generated exports
+data/exports/
+
+# Backups
+data/backup/
+
+# Application logs
+logs/
