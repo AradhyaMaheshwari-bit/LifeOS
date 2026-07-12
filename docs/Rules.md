@@ -23,6 +23,7 @@ Only record information that is either:
 - Explicitly provided
 - Confirmed by the user
 - Inferred using an agreed LifeOS inference rule.
+- Prefer conventions over adding new JSON fields whenever the same information can be represented consistently.
 
 ---
 
@@ -364,6 +365,83 @@ The following definitions describe the purpose of each field in the daily JSON.
 - `notes` should provide context rather than duplicate information stored elsewhere.
 - `key_learnings` should only contain concepts that were genuinely learned.
 - `review_topics` should contain concepts that need to be revisited in future study sessions.
+
+### Session and Module Convention
+
+LifeOS distinguishes between a **study session** and a **module**.
+
+- **Session** → One uninterrupted period of study.
+- **Module** → A larger unit of learning (course chapter, project phase, or topic) that may span multiple study sessions.
+
+No additional JSON field should be introduced for modules.
+
+Instead, use the `notes` field to indicate module or project progress.
+
+Examples:
+
+```
+Module: Version Control: Git (Part 1 of 2).
+```
+
+```
+Module: Version Control: Git (Part 2 of 2). Module completed.
+```
+
+Projects, internships, and long-term work follow the same convention.
+
+Examples:
+
+```
+Project: Simple Calculator (Session 2). Implemented calculator operations.
+```
+
+```
+Project: Simple Calculator (Final Session). Project completed and pushed to GitHub.
+```
+
+```
+Project: ApexPlanet Task 3 (Session 1).
+```
+
+```
+Project: ApexPlanet Task 3 (Final Session). Task completed.
+```
+
+This convention allows long-running learning modules and projects to span multiple study sessions without introducing additional JSON fields.
+
+---
+
+### Consistency Rule
+
+Use consistent names for recurring subjects.
+
+Examples:
+
+- Python
+- Git
+- SQL
+- Power BI
+- BCA
+- Machine Learning
+
+Avoid using multiple names for the same subject unless they genuinely refer to different subjects.
+
+For example, always use:
+
+```
+Python
+```
+
+instead of mixing:
+
+```
+Python
+Python Programming
+Py
+CWH Python
+```
+
+This ensures long-term analytics remain accurate.
 
 ### Consistency Rule
 
